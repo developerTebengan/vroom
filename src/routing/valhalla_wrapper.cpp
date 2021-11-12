@@ -39,7 +39,9 @@ std::string ValhallaWrapper::get_matrix_query(
 
   query += "{\"sources\":[" + all_locations;
   query += "],\"targets\":[" + all_locations;
-  query += "],\"costing\":\"" + profile + "\"}";
+  query += "],\"costing\":\"" + profile + "\"";
+  query += ",\"costing_options\":{\"auto\":{\"maneuver_penalty\":360,\"top_speed\":100,\"service_factor\":360,\"gate_cost\":60,\"toll_booth_cost\":60}}";
+  query += "}";
 
   query += " HTTP/1.1\r\n";
   query += "Host: " + _server.host + "\r\n";
@@ -66,6 +68,7 @@ ValhallaWrapper::get_route_query(const std::vector<Location>& locations,
   if (!extra_args.empty()) {
     query += "," + extra_args;
   }
+  query += ",\"costing_options\":{\"auto\":{\"maneuver_penalty\":360,\"top_speed\":100,\"service_factor\":360,\"gate_cost\":60,\"toll_booth_cost\":60}}";
   query += "}";
 
   query += " HTTP/1.1\r\n";
